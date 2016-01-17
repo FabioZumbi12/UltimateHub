@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
@@ -40,7 +39,7 @@ public class Launchpads implements Listener{
 							player.playSound(player.getLocation(), Sound.valueOf(launchpads.getConfig().getString("sound").toUpperCase()), 1, 1);	
 						}
 						if(!launchpads.getConfig().getString("effect").equalsIgnoreCase("none")){
-							player.playEffect(player.getLocation(), Effect.valueOf(launchpads.getConfig().getString("effect").toUpperCase()), 1);						
+							player.playEffect(player.getLocation(), Effect.valueOf(launchpads.getConfig().getString("effect").toUpperCase()),Effect.Type.PARTICLE);						
 						}
 						player.setVelocity(player.getLocation().getDirection().multiply(Double.valueOf(launchpads.getConfig().getString("multiply"))));
 						player.setVelocity(new Vector(player.getVelocity().getX(), Integer.parseInt(launchpads.getConfig().getString("upward")), player.getVelocity().getZ()));

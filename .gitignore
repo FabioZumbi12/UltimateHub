@@ -217,3 +217,4 @@ pip-log.txt
 /target/surefire/
 /target/maven-archiver/
 /target/generated-resources/
+/target/

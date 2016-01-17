@@ -1,6 +1,5 @@
 package me.kyledag500.UltimateHub;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
@@ -8,8 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -68,7 +65,7 @@ public class Toggler implements Listener {
 			for(Player p : Bukkit.getOnlinePlayers()){
 				player.showPlayer(p);
 				if(!toggler.getConfig().getString("effect").equalsIgnoreCase("none")){
-					player.playEffect(p.getLocation(), Effect.valueOf(toggler.getConfig().getString("effect").toUpperCase()), 1);
+					player.playEffect(p.getLocation(), Effect.valueOf(toggler.getConfig().getString("effect").toUpperCase()), Effect.Type.PARTICLE);
 				}
 			}
 			if(!toggler.getConfig().getString("sound").equalsIgnoreCase("none")){
@@ -101,7 +98,7 @@ public class Toggler implements Listener {
 			for(Player p : Bukkit.getOnlinePlayers()){
 				player.hidePlayer(p);
 				if(!toggler.getConfig().getString("effect").equalsIgnoreCase("none")){
-					player.playEffect(p.getLocation(), Effect.valueOf(toggler.getConfig().getString("effect").toUpperCase()), 1);
+					player.playEffect(p.getLocation(), Effect.valueOf(toggler.getConfig().getString("effect").toUpperCase()), Effect.Type.PARTICLE);
 				}
 			}
 			if(!toggler.getConfig().getString("sound").equalsIgnoreCase("none")){

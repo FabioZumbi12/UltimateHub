@@ -1,21 +1,13 @@
 package me.kyledag500.UltimateHub;
 
-import java.util.ArrayList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class main extends JavaPlugin implements Listener{
-	
-	private static Plugin plugin;
 	
 	private Selector selector;
 	CustomConfig selectorconfig = new CustomConfig(this, "selector.yml");
@@ -135,6 +127,8 @@ public class main extends JavaPlugin implements Listener{
 		                break;
 		            case UPDATE_AVAILABLE:
 		              // There was an update found, but because you had the UpdateType set to NO_DOWNLOAD, it was not downloaded.			
+				default:
+					break;
 		        }	
 			}
 		}
