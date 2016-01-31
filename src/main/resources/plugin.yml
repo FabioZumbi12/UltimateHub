@@ -1,4 +1,8 @@
 name: UltimateHub
 main: me.kyledag500.UltimateHub.main
 author: kyledag500
-version: UltimateHub v1.1.3
+version: 2.0.0
+commands:
+  UltimateHub:
+    description: "Main command for UltimateHub."
+    aliases: [uh, uhub]

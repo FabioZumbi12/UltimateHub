@@ -4,6 +4,9 @@
 #Should the server selector be enabled?
 enabled: 'true'
 
+#Allow player (no OP) to drop and move selector itens on normal inventory
+dropAndmove: 'false'
+
 #What should the menu say at the top?
 menuTitle: '&4Select a Server'
 
@@ -11,7 +14,7 @@ menuTitle: '&4Select a Server'
 menuSize: '9'
 
 #What slot should the item be added in the inventory when joining?
-giveSlot: '1'
+giveSlot: 1
 
 #List of items. (Just random names)
 items:
@@ -38,8 +41,8 @@ selector:
 #
 '1':
   type: DIAMOND_SWORD:0
-  slot: '1'
-  amount: '1'
+  slot: 1
+  amount: 1
   glow: 'false'
   displayName: '&4Factions'
   lore:
@@ -48,8 +51,8 @@ selector:
   message: '&1Sending you to the factions server!'
 '2':
   type: IRON_FENCE:0
-  slot: '2'
-  amount: '1'
+  slot: 2
+  amount: 1
   glow: 'false'
   displayName: '&3Prison'
   lore:

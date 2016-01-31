@@ -5,10 +5,6 @@ import java.io.DataOutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-
-
-
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -20,7 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -106,7 +101,7 @@ public class Selector implements Listener{
 	    	if(!selector.getConfig().getString(i + ".glow").equalsIgnoreCase("false")){
 	    		item.addUnsafeEnchantment(glow, 1);
 	    	}
-	    	main.setItem(Integer.parseInt(selector.getConfig().getString(i + ".slot")), item);
+	    	main.setItem(selector.getConfig().getInt(i + ".slot"), item);
 		}
 		player.openInventory(main);
 	}
@@ -141,25 +136,13 @@ public class Selector implements Listener{
 						}
 					}
 					
+				} else if (selector.getConfig().getString("dropAndmove").equalsIgnoreCase("false") && !player.isOp()) {
+					event.setCancelled(true);
 				}
 			}
 		}
-	}
+	}	
 	
-	
-	
-	
-	
-	
-	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event){
-		final Player player = event.getPlayer();
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
-            public void run() {
-            	giveSelector(player);
-                  }
-          }, 5L);
-	}
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event){

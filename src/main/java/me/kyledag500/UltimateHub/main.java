@@ -9,17 +9,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class main extends JavaPlugin implements Listener{
 	
-	private Selector selector;
+	Selector selector;
 	CustomConfig selectorconfig = new CustomConfig(this, "selector.yml");
 	
 	private Launchpads launchpads;
 	CustomConfig launchpadsconfig = new CustomConfig(this, "launchpads.yml");
 	
-	private Toggler Toggler;
+	Toggler Toggler;
 	CustomConfig togglerconfig = new CustomConfig(this, "playertoggler.yml");
-	CustomConfig playertogglers = new CustomConfig(this, "playerdata/togglers.yml");
-	
-	private General general;
+	CustomConfig playertogglers = new CustomConfig(this, "playerdata/togglers.yml");	
 	CustomConfig generalplayers = new CustomConfig(this, "playerdata/general.yml");
 	
 	
@@ -28,9 +26,9 @@ public class main extends JavaPlugin implements Listener{
 	Boolean updated = false;
 	Updater updater = null;
 	
-	public void onEnable(){
-		saveConfig();		
-		Bukkit.getPluginManager().registerEvents(this, this);		
+	public void onEnable(){		
+		Bukkit.getPluginManager().registerEvents(this, this);
+		
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         
 		setupGeneral();
@@ -42,12 +40,14 @@ public class main extends JavaPlugin implements Listener{
 		if(getConfig().getString("autoUpdate").equalsIgnoreCase("true")){
 			updater = new Updater(this, 76973, this.getFile(), Updater.UpdateType.DEFAULT, true);
 			Bukkit.broadcastMessage(updater.getLatestName());
-		}
+		}/*
 		else{
 			Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + "You have disabled the UltimateHub auto updater. This is not recomended. You can re-enable it from the config.");
-		}
-
-		
+		}*/		
+	}
+	
+	public void onDisable(){
+		this.setEnabled(false);		
 	}
 	
 	public void setupToggler(){
@@ -78,8 +78,8 @@ public class main extends JavaPlugin implements Listener{
 	}
 	
 	public void setupGeneral(){
-		general = new General(this, this);
-		Bukkit.getPluginManager().registerEvents(general, this);
+		Bukkit.getPluginManager().registerEvents(new General(this), this);
+		getCommand("UltimateHub").setExecutor(new General(this));
     	generalplayers.createIfNoExist();
 	}
 	

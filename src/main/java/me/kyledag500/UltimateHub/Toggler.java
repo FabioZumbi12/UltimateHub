@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -60,12 +59,13 @@ public class Toggler implements Listener {
     	on.setItemMeta(nm);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void giveOff(final Player player){
 		if(!cooldown.contains(player)){
 			for(Player p : Bukkit.getOnlinePlayers()){
 				player.showPlayer(p);
 				if(!toggler.getConfig().getString("effect").equalsIgnoreCase("none")){
-					player.playEffect(p.getLocation(), Effect.valueOf(toggler.getConfig().getString("effect").toUpperCase()), Effect.Type.PARTICLE);
+					player.playEffect(p.getLocation(), Effect.valueOf(toggler.getConfig().getString("effect").toUpperCase()), 1);
 				}
 			}
 			if(!toggler.getConfig().getString("sound").equalsIgnoreCase("none")){
@@ -93,12 +93,13 @@ public class Toggler implements Listener {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void giveOn(final Player player){
 		if(!cooldown.contains(player)){
 			for(Player p : Bukkit.getOnlinePlayers()){
 				player.hidePlayer(p);
 				if(!toggler.getConfig().getString("effect").equalsIgnoreCase("none")){
-					player.playEffect(p.getLocation(), Effect.valueOf(toggler.getConfig().getString("effect").toUpperCase()), Effect.Type.PARTICLE);
+					player.playEffect(p.getLocation(), Effect.valueOf(toggler.getConfig().getString("effect").toUpperCase()), 1);
 				}
 			}
 			if(!toggler.getConfig().getString("sound").equalsIgnoreCase("none")){
@@ -134,38 +135,6 @@ public class Toggler implements Listener {
 		}
 	}
 	
-	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event){
-		final Player player = event.getPlayer();
-		if(players.getConfig().getString(event.getPlayer().getUniqueId().toString()) == null){
-			players.getConfig().set(event.getPlayer().getUniqueId().toString(), "off");
-			players.saveConfig();
-		}
-		if(players.getConfig().getString(event.getPlayer().getUniqueId().toString() + "").equalsIgnoreCase("off")){
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
-	            public void run() {
-	            	giveOff(player);
-	            	for(Player p : Bukkit.getOnlinePlayers()){
-	            		if(p.getInventory().contains(on)){
-	            			p.hidePlayer(player);
-	            		}
-	            	}
-	                  }
-	          }, 5L);	
-		}
-		else{
-			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
-	            public void run() {
-	            	giveOn(player);
-	            	for(Player p : Bukkit.getOnlinePlayers()){
-	            		if(p.getInventory().contains(on)){
-	            			p.hidePlayer(player);
-	            		}
-	            	}
-	                  }
-	          }, 5L);
-		}
-	}
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event){

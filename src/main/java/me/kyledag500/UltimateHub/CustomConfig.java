@@ -1,15 +1,18 @@
 package me.kyledag500.UltimateHub;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
  
 public class CustomConfig {
        
         private String configName;
         private File configFile;
-        private FileConfiguration config;
+        private UTFYaml config;
         private Plugin plugin;
        
         public CustomConfig(Plugin plugin, String configName) {
@@ -50,8 +53,20 @@ public class CustomConfig {
        
         public void reloadConfig() {
                 this.configFile = new File(this.plugin.getDataFolder(), this.configName);
-                this.config = YamlConfiguration.loadConfiguration(this.configFile);
+                this.config = inputLoader(this.configFile);
         }
+        
+        private static UTFYaml inputLoader(File inp) {
+        	UTFYaml file = new UTFYaml();
+    		try {
+    			FileInputStream f = new FileInputStream(inp);
+    			file.load(new InputStreamReader(f, StandardCharsets.UTF_8));
+    			f.close();
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		} 		
+    		return file;
+    	}
        
         public boolean saveConfig() {
                 if(config != null && configFile != null) {
